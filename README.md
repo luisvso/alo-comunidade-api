@@ -28,6 +28,7 @@ bun dev
 ```
 
 ## Passos para criar o ambiente
+Referência futura, não é necessário rodar visto que ja foi rodado no projeto.
 ```bash
 # Cria arquvo arquivos com cofiguração padrão
 bun init -y
