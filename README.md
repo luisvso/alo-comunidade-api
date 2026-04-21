@@ -14,11 +14,6 @@ src/
 └── utils/         # Funções auxiliares reutilizáveis (hash, jwt, etc)
 ```
 
-## Requisitos
-
-- [Bun](https://bun.sh) >= 1.0
-- PostgreSQL
-
 ## Como rodar
 
 ```bash
@@ -40,11 +35,10 @@ bun init -y
 # Runtime deps
 bun add express @prisma/client jsonwebtoken bcryptjs dotenv
 
-# Dev deps
-# Não é necessário ts-node-dev, bun roda TS direto
+# Dev deps (Não é necessário ts-node-dev, bun roda TS direto)
 bun add -d typescript @types/node @types/express @types jsonwebtoken @types/bcryptjs prisma
 
-# Prisma
+# Prisma (configura o ORM pela 1º vez)
 bunx prisma init
 
 ```
