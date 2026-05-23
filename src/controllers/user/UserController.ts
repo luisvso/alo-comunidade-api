@@ -44,7 +44,7 @@ export const getUserById = async (req: Request, res: Response) => {
     const { id } = req.params as { id: string };
 
     try {
-        const user = userService.getUserById(id);
+        const user = await userService.getUserById(id);
         res.json({ data: user, message: "User returned successfully" })
 
     } catch (error) {
