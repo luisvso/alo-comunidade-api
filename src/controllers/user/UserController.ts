@@ -27,24 +27,6 @@ export const deleteUser = async (req: Request, res: Response) => {
 
 }
 
-export const createUser = async (req: Request, res: Response) => {
-
-    const { name, email, cpf, hashPassword } = req.body;
-
-    try {
-        const user = await prisma.user.create({
-            data: {
-                name, email,
-                cpf, hashPassword
-            }
-        });
-        res.json({ data: user, message: "User created Successfully!" })
-
-    } catch (error) {
-        res.json({ error: error, message: "Failed to create User" })
-    }
-}
-
 export const updateUser = async (req: Request, res: Response) => {
 
     const { id } = req.params as { id: string };

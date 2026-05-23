@@ -2,7 +2,7 @@ import { prisma } from "../../db/prisma";
 import { hashPassword, comparePassword } from "../../utils/hash";
 import { signToken } from "../../utils/jwt";
 
-export async function register(name: string, email: string, password: string) {
+export async function register(name: string, email: string, cpf: string, password: string) {
     const existing = await prisma.user.findUnique({ where: { email } });
 
     // Retorna erro se o e-mail já estiver cadastrado
@@ -11,9 +11,10 @@ export async function register(name: string, email: string, password: string) {
     }
 
     const hashed = await hashPassword(password);
+
     // delete const user line and substitute for UserService.createUser()
     const user = await prisma.user.create({
-        data: { name, email, hashPassword: hashed },
+        data: { name, email, cpf, hashPassword: hashed },
         select: { id: true, name: true, email: true, createdAt: true },
     });
 

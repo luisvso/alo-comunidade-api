@@ -5,3 +5,7 @@ node = "24"
 [tasks.db]
 description = "Task for executing migration and database update"
 run = "bunx prisma generate && bunx prisma db push"
+
+[tasks.run]
+description = "Task for running the project"
+run = "bun run dev"
