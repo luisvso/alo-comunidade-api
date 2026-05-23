@@ -1,11 +1,11 @@
 import type { Request, Response } from "express";
-import { prisma } from "../../db/prisma";
+import * as userService from "../../services/user/UserService";
 
 
 export const getUsers = async (req: Request, res: Response) => {
 
     try {
-        const users = await prisma.user.findMany();
+        const users = await userService.getUsers();
         res.json(users);
     } catch (error) {
         res.status(400).json({ error: error, message: "Failed to fetch all the users" })
@@ -16,10 +16,7 @@ export const deleteUser = async (req: Request, res: Response) => {
     const { id } = req.params as { id: string };
 
     try {
-        await prisma.user.delete({
-            where: { id: parseInt(id) }
-        });
-
+        userService.deleteUser(id);
         res.json({ message: `User of id: ${id} deleted successfully` })
     } catch (error) {
         res.status(400).json({ error: error, Message: `User of Id: ${id} not founded to be deleted` })
@@ -33,14 +30,7 @@ export const updateUser = async (req: Request, res: Response) => {
     const { name, email, cpf, hashPassword } = req.body;
 
     try {
-        const user = await prisma.user.update({
-            where: { id: parseInt(id) },
-            data: {
-                name, email,
-                cpf, hashPassword
-            }
-
-        })
+        const user = userService.updateUser(id, name, email, cpf, hashPassword);
         res.json({ data: user, messsage: "Updated the user successfully" })
 
     } catch (error) {
@@ -54,9 +44,7 @@ export const getUserById = async (req: Request, res: Response) => {
     const { id } = req.params as { id: string };
 
     try {
-        const user = await prisma.user.findUnique({
-            where: { id: parseInt(id) }
-        })
+        const user = userService.getUserById(id);
         res.json({ data: user, message: "User returned successfully" })
 
     } catch (error) {
