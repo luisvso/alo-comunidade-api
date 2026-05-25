@@ -18,6 +18,31 @@ model User {
   email        String   @unique
   cpf          String   @unique
   hashPassword String
+  posts        Post[]
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
+}
+
+enum PostStatus {
+  Aberto
+  EmAndamento  @map("Em Andamento")
+  Resolvido
+}
+
+model Post {
+  id          Int        @id @default(autoincrement())
+  title       String
+  description String
+  image       String
+  categoria   String
+  status      PostStatus @default(Aberto)
+  state       String
+  city        String
+  neighborhood String
+  street      String
+  number      String?
+  author      User       @relation(fields: [authorId], references: [id])
+  authorId    Int
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
 }
